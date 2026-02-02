@@ -390,7 +390,7 @@ export default function Quiz() {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [timer, setTimer] = useState(20);
+  const [timer, setTimer] = useState(15);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -482,7 +482,7 @@ export default function Quiz() {
       setTimer((prev) => {
         if (prev <= 1) {
           handleNext();
-          return 20;
+          return 15;
         }
         return prev - 1;
       });
@@ -494,7 +494,7 @@ export default function Quiz() {
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimer(20);
+      setTimer(15);
     } else {
       handleSubmit();
     }
