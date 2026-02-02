@@ -17,12 +17,10 @@ const styles = `
     min-height: 100vh;
     background-color: #f3f4f6;
     padding: 20px;
-    /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    /* Prevent drag and drop */
     -webkit-user-drag: none;
   }
 
@@ -98,7 +96,6 @@ const styles = `
     margin-bottom: 30px;
     color: #1f2937;
     line-height: 1.6;
-    /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -118,7 +115,6 @@ const styles = `
     background-color: #f9fafb;
     cursor: pointer;
     transition: all 0.3s ease;
-    /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -150,7 +146,6 @@ const styles = `
   .option-text {
     font-size: 16px;
     color: #374151;
-    /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -219,9 +214,7 @@ const styles = `
     font-size: 16px;
   }
 
-  /* ===== RESPONSIVE DESIGN ===== */
-
-  /* Tablets (768px to 1024px) */
+  /* Responsive */
   @media (max-width: 1024px) {
     .container {
       max-width: 100%;
@@ -253,7 +246,6 @@ const styles = `
     }
   }
 
-  /* Mobile Devices (up to 768px) */
   @media (max-width: 768px) {
     .quiz-page {
       padding: 16px;
@@ -312,7 +304,6 @@ const styles = `
     }
   }
 
-  /* Small Mobile Devices (up to 480px) */
   @media (max-width: 480px) {
     .quiz-page {
       padding: 12px;
@@ -410,7 +401,7 @@ export default function Quiz() {
     }
   };
 
-  // Prevent Copy-Paste
+  // Prevent Copy-Paste and Right-Click
   useEffect(() => {
     const handleCopy = (e) => {
       e.preventDefault();
@@ -430,31 +421,25 @@ export default function Quiz() {
       return false;
     };
 
-    // Prevent keyboard shortcuts
     const handleKeyDown = (e) => {
-      // Ctrl+C (Copy)
       if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
         e.preventDefault();
         return false;
       }
-      // Ctrl+V (Paste)
       if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
         e.preventDefault();
         return false;
       }
-      // Ctrl+X (Cut)
       if ((e.ctrlKey || e.metaKey) && e.key === 'x') {
         e.preventDefault();
         return false;
       }
-      // Ctrl+A (Select All)
       if ((e.ctrlKey || e.metaKey) && e.key === 'a') {
         e.preventDefault();
         return false;
       }
     };
 
-    // Add event listeners
     document.addEventListener('copy', handleCopy);
     document.addEventListener('paste', handlePaste);
     document.addEventListener('cut', handleCut);
@@ -465,7 +450,6 @@ export default function Quiz() {
       return false;
     });
 
-    // Cleanup on unmount
     return () => {
       document.removeEventListener('copy', handleCopy);
       document.removeEventListener('paste', handlePaste);
@@ -475,6 +459,7 @@ export default function Quiz() {
     };
   }, []);
 
+  // Timer Logic - 15 seconds per question
   useEffect(() => {
     if (questions.length === 0) return;
 
@@ -482,7 +467,7 @@ export default function Quiz() {
       setTimer((prev) => {
         if (prev <= 1) {
           handleNext();
-          return 15;
+          return 15; // Reset timer
         }
         return prev - 1;
       });
@@ -494,7 +479,7 @@ export default function Quiz() {
   const handleNext = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
-      setTimer(15);
+      setTimer(15); // Reset to 15 seconds
     } else {
       handleSubmit();
     }

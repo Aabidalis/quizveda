@@ -564,7 +564,7 @@ export default function Home() {
             {/* Left Section */}
             <div className="left-section">
               <h2 className="main-heading">
-                Master the Quiz
+                Master the Quiz Aabid
               </h2>
               <p className="description">
                 Join the most competitive quiz platform. Test your knowledge across 10 questions in 2.5 minutes.
